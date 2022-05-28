@@ -1,12 +1,18 @@
-import { useState, useEffect } from "react/cjs/react.production.min";
+import { useState, useEffect } from "react";
 import { RepositoryItem } from "./RepositoryItem";
 
 import "../styles/repositories.scss";
 
+interface Repository {
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 // https://api.github.com/orgs/rocketseat/repos
 
 export function RepositoryList() {
-  const [repositorios, setRepositorios] = useState([]);
+  const [repositorios, setRepositorios] = useState<Repository[]>([]);
 
   useEffect(() => {
     fetch("https://api.github.com/orgs/rocketseat/repos")
@@ -19,7 +25,6 @@ export function RepositoryList() {
       <h1>Lista de repositórios</h1>
       <ul>
         {repositorios.map((repositorio) => {
-          console.log(repositorio);
           return (
             <RepositoryItem key={repositorio.name} repositorio={repositorio} />
           );
